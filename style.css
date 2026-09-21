@@ -11,9 +11,11 @@ body {
   min-height: 100vh;
   overflow-x: hidden;
   font-family: Georgia, "Times New Roman", serif;
+
   background:
-    radial-gradient(circle at 50% 15%, rgba(255, 220, 95, .35), transparent 28%),
-    linear-gradient(160deg, #24152d 0%, #402043 45%, #171526 100%);
+    linear-gradient(rgba(20, 10, 25, .58), rgba(20, 10, 25, .72)),
+    url("muchacha.jpg") center center / cover no-repeat fixed;
+
   color: #fff8e7;
   display: flex;
   justify-content: center;
@@ -115,7 +117,7 @@ button:active {
 
 .f1 { left: 5%; top: 48px; animation-delay: .05s, .8s; transform: rotate(-13deg); }
 .f2 { left: 22%; top: 20px; animation-delay: .15s, 1s; transform: rotate(-5deg); }
-.f3 { left: 42%; top: 0; animation-delay: .25s, 1.2s; font-size: 76px; }
+.f3 { left: 42%; top: 0; animation-delay: .25s, 1.2s; transform: rotate(0deg); font-size: 76px; }
 .f4 { left: 63%; top: 20px; animation-delay: .35s, 1.4s; transform: rotate(7deg); }
 .f5 { left: 79%; top: 50px; animation-delay: .45s, 1.6s; transform: rotate(13deg); }
 
@@ -221,10 +223,30 @@ button:active {
 }
 
 @media (max-width: 430px) {
-  body { padding: 12px; }
-  .card { padding: 28px 17px 24px; border-radius: 25px; }
-  .flower { font-size: 51px; }
-  .f3 { font-size: 63px; }
-  .bouquet { height: 125px; }
-  .message p { font-size: 16px; }
+  body {
+    padding: 12px;
+    background-attachment: scroll;
+    background-position: center center;
+  }
+
+  .card {
+    padding: 28px 17px 24px;
+    border-radius: 25px;
+  }
+
+  .flower {
+    font-size: 51px;
+  }
+
+  .f3 {
+    font-size: 63px;
+  }
+
+  .bouquet {
+    height: 125px;
+  }
+
+  .message p {
+    font-size: 16px;
+  }
 }
