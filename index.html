@@ -1,49 +1,236 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="es">
 <head>
-<meta charset="utf-8">
-<meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no">
-<title>Flores para Beatriz 🌻</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Para Beatriz 🌻</title>
+
 <style>
-*{box-sizing:border-box}html,body{margin:0;width:100%;height:100%;overflow:hidden;background:#000;font-family:Arial,sans-serif}body{touch-action:none;color:white}
-#app{position:fixed;inset:0;background:#000}.stars{position:absolute;inset:0;z-index:1;background-image:radial-gradient(#fff 1px,transparent 1px),radial-gradient(#fff 1px,transparent 1px);background-size:97px 113px,157px 181px;background-position:12px 18px,55px 80px;opacity:.65}
-#earth{position:absolute;inset:0;z-index:10}canvas{display:block;width:100%;height:100%}
-#words{position:absolute;inset:0;z-index:30;pointer-events:none;overflow:hidden}.word{position:absolute;left:-80vw;white-space:nowrap;font-weight:700;font-size:clamp(17px,4.2vw,32px);color:#fff4a0;text-shadow:0 0 8px #ffbf00,0 0 18px #000;animation:fly var(--speed) linear var(--delay) infinite alternate;top:var(--top)}
-@keyframes fly{from{left:-80vw}to{left:105vw}}
-#flowers{position:absolute;inset:0;z-index:20;pointer-events:none;overflow:hidden}.flower{position:absolute;left:-100px;top:var(--top);animation:flowerMove var(--speed) linear var(--delay) infinite}.flower .r,.flower .s{width:62px;height:62px;position:relative;filter:drop-shadow(0 0 9px #ffd21f)}
-.r{border-radius:50%;background:radial-gradient(circle at 50% 50%,#8b5700 0 8%,transparent 9%),radial-gradient(circle at 35% 35%,#fff36b 0 18%,transparent 19%),radial-gradient(circle at 65% 35%,#ffd21f 0 20%,transparent 21%),radial-gradient(circle at 35% 65%,#ffc400 0 20%,transparent 21%),radial-gradient(circle at 65% 65%,#ffe35a 0 20%,transparent 21%),radial-gradient(circle,#ffbf00 0 50%,#ffe45b 51% 64%,transparent 65%)}
-.s{border-radius:50%;background:radial-gradient(circle,#70420b 0 20%,#a36516 21% 29%,transparent 30%),conic-gradient(#ffd21f 0 9deg,transparent 9deg 18deg,#ffc400 18deg 27deg,transparent 27deg 36deg,#ffd21f 36deg 45deg,transparent 45deg 54deg,#ffc400 54deg 63deg,transparent 63deg 72deg,#ffd21f 72deg 81deg,transparent 81deg 90deg,#ffc400 90deg 99deg,transparent 99deg 108deg,#ffd21f 108deg 117deg,transparent 117deg 126deg,#ffc400 126deg 135deg,transparent 135deg 144deg,#ffd21f 144deg 153deg,transparent 153deg 162deg,#ffc400 162deg 171deg,transparent 171deg 180deg,#ffd21f 180deg 189deg,transparent 189deg 198deg,#ffc400 198deg 207deg,transparent 207deg 216deg,#ffd21f 216deg 225deg,transparent 225deg 234deg,#ffc400 234deg 243deg,transparent 243deg 252deg,#ffd21f 252deg 261deg,transparent 261deg 270deg,#ffc400 270deg 279deg,transparent 279deg 288deg,#ffd21f 288deg 297deg,transparent 297deg 306deg,#ffc400 306deg 315deg,transparent 315deg 324deg,#ffd21f 324deg 333deg,transparent 333deg 342deg,#ffc400 342deg 351deg,transparent 351deg 360deg)}
-@keyframes flowerMove{0%{transform:translate(-80px,0) rotate(0) scale(.7);opacity:0}10%{opacity:1}50%{transform:translate(55vw,var(--wave)) rotate(180deg) scale(1)}90%{opacity:1}100%{transform:translate(115vw,calc(var(--wave)*-1)) rotate(360deg) scale(.8);opacity:0}}
-#intro{position:absolute;inset:0;z-index:100;background:#000;display:flex;align-items:center;justify-content:center;transition:opacity 1s}.enter{border:1px solid #ffd21f;border-radius:999px;background:#080808;color:#fff;padding:16px 25px;font-size:17px;box-shadow:0 0 25px #b47b00;letter-spacing:1px}
-#final{display:none;position:absolute;inset:0;z-index:90;align-items:center;justify-content:center;flex-direction:column;background:rgba(0,0,0,.25);text-align:center;pointer-events:none}.finalA{font-size:clamp(40px,13vw,90px);font-weight:800}.finalB{font-size:clamp(38px,12vw,82px);font-weight:900;color:#3dff69;text-shadow:0 0 20px #1aff55}.finalC{font-size:clamp(19px,5vw,32px);color:#3dff69}.hint{position:absolute;bottom:18px;font-size:11px;opacity:.5}
+*{box-sizing:border-box}
+
+html,body{
+  margin:0;
+  width:100%;
+  height:100%;
+  overflow:hidden;
+}
+
+body{
+  background:
+    radial-gradient(circle at center,#352500 0%,#100d02 42%,#000 100%);
+  color:white;
+  font-family:Arial,sans-serif;
+}
+
+.pantalla{
+  width:100%;
+  height:100dvh;
+  display:flex;
+  flex-direction:column;
+  justify-content:center;
+  align-items:center;
+  text-align:center;
+  padding:20px;
+}
+
+.flores{
+  position:relative;
+  width:330px;
+  height:380px;
+  max-width:90vw;
+}
+
+.flor{
+  position:absolute;
+  bottom:30px;
+  left:50%;
+  transform-origin:bottom;
+}
+
+.flor:nth-child(1){
+  margin-left:-105px;
+  transform:rotate(-8deg) scale(.8);
+}
+
+.flor:nth-child(2){
+  margin-left:-50px;
+  transform:scale(1);
+}
+
+.flor:nth-child(3){
+  margin-left:50px;
+  transform:rotate(8deg) scale(.8);
+}
+
+.tallo{
+  width:5px;
+  height:210px;
+  margin:auto;
+  background:linear-gradient(#57913d,#163d18);
+  border-radius:10px;
+}
+
+.cabeza{
+  width:110px;
+  height:110px;
+  position:relative;
+  margin:-12px auto 0;
+}
+
+.petalo{
+  position:absolute;
+  width:48px;
+  height:72px;
+  left:31px;
+  top:19px;
+  border-radius:60% 60% 50% 50%;
+  background:linear-gradient(135deg,#ffe95b,#efa600);
+  transform-origin:50% 80%;
+  box-shadow:0 0 12px rgba(255,204,40,.35);
+}
+
+.p1{transform:rotate(0deg) translateY(-30px)}
+.p2{transform:rotate(45deg) translateY(-30px)}
+.p3{transform:rotate(90deg) translateY(-30px)}
+.p4{transform:rotate(135deg) translateY(-30px)}
+.p5{transform:rotate(180deg) translateY(-30px)}
+.p6{transform:rotate(225deg) translateY(-30px)}
+.p7{transform:rotate(270deg) translateY(-30px)}
+.p8{transform:rotate(315deg) translateY(-30px)}
+
+.centro{
+  position:absolute;
+  width:40px;
+  height:40px;
+  left:35px;
+  top:35px;
+  border-radius:50%;
+  background:#713900;
+  border:5px solid #914d00;
+}
+
+.mensaje{
+  max-width:520px;
+  position:relative;
+  z-index:5;
+}
+
+h1{
+  font-size:clamp(28px,8vw,46px);
+  margin:0 0 15px;
+  color:#ffd84d;
+  text-shadow:0 0 15px rgba(255,204,40,.4);
+}
+
+p{
+  font-size:clamp(16px,4.8vw,21px);
+  line-height:1.55;
+  margin:0;
+}
+
+.firma{
+  margin-top:18px;
+  color:#ffd84d;
+  letter-spacing:2px;
+  font-size:15px;
+}
+
+.corazon{
+  animation:latido 1.3s infinite;
+  display:inline-block;
+}
+
+@keyframes latido{
+  50%{transform:scale(1.25)}
+}
+
+@media(max-height:650px){
+  .flores{
+    height:280px;
+  }
+
+  .tallo{
+    height:150px;
+  }
+
+  p{
+    font-size:15px;
+  }
+}
 </style>
 </head>
+
 <body>
-<div id="app"><div class="stars"></div><div id="earth"></div><div id="flowers"></div><div id="words"></div>
-<div id="intro"><button class="enter" id="enter">TOCA Y ENTRA ✨</button></div>
-<div id="final"><div class="finalA">PARA</div><div class="finalB">BEATRIZ</div><div class="finalC">wălt stĕb</div></div></div>
-<audio id="music" src="musica.mp3" loop preload="auto"></audio>
-<script type="module">
-import * as THREE from 'https://cdn.jsdelivr.net/npm/three@0.180.0/build/three.module.js';
-import {OrbitControls} from 'https://cdn.jsdelivr.net/npm/three@0.180.0/examples/jsm/controls/OrbitControls.js';
-const mount=document.getElementById('earth');
-const scene=new THREE.Scene();
-const camera=new THREE.PerspectiveCamera(38,innerWidth/innerHeight,.1,100);camera.position.set(0,0,4.9);
-const renderer=new THREE.WebGLRenderer({antialias:true,alpha:true});renderer.setPixelRatio(Math.min(devicePixelRatio,2));renderer.setSize(innerWidth,innerHeight);renderer.outputColorSpace=THREE.SRGBColorSpace;mount.appendChild(renderer.domElement);
-const controls=new OrbitControls(camera,renderer.domElement);controls.enableDamping=true;controls.enablePan=false;controls.minDistance=3;controls.maxDistance=8;controls.autoRotate=true;controls.autoRotateSpeed=.25;
-const L=new THREE.TextureLoader();
-const earthMap=L.load('https://threejs.org/examples/textures/planets/earth_atmos_2048.jpg',t=>t.colorSpace=THREE.SRGBColorSpace);
-const normal=L.load('https://threejs.org/examples/textures/planets/earth_normal_2048.jpg');
-const spec=L.load('https://threejs.org/examples/textures/planets/earth_specular_2048.jpg');
-const cloud=L.load('https://threejs.org/examples/textures/planets/earth_clouds_1024.png');
-const globe=new THREE.Mesh(new THREE.SphereGeometry(1.48,96,96),new THREE.MeshPhongMaterial({map:earthMap,normalMap:normal,specularMap:spec,shininess:14}));scene.add(globe);
-const clouds=new THREE.Mesh(new THREE.SphereGeometry(1.505,96,96),new THREE.MeshPhongMaterial({map:cloud,transparent:true,opacity:.42,depthWrite:false}));scene.add(clouds);
-scene.add(new THREE.Mesh(new THREE.SphereGeometry(1.62,96,96),new THREE.MeshBasicMaterial({color:0x4da3ff,transparent:true,opacity:.09,side:THREE.BackSide})));
-scene.add(new THREE.AmbientLight(0x7995bd,1.5));const sun=new THREE.DirectionalLight(0xffffff,3);sun.position.set(4,2,5);scene.add(sun);
-function render(){requestAnimationFrame(render);globe.rotation.y+=.0007;clouds.rotation.y+=.001;controls.update();renderer.render(scene,camera)}render();
-addEventListener('resize',()=>{camera.aspect=innerWidth/innerHeight;camera.updateProjectionMatrix();renderer.setSize(innerWidth,innerHeight)});
-const texts=['Beatriz ❤️','Qué bonito conocerte ✨','Eres especial 🌻','Tu sonrisa ilumina 💫','Me alegra coincidir contigo ❤️','Nunca dejes de sonreír 😊','Eres una persona muy bonita 💛','Que nunca te falten motivos para sonreír ✨','Un pequeño detalle para ti 🌻','Con cariño para ti 💛','Que tengas un día bonito 🌹','Para una niña especial ❤️'];
-texts.forEach((t,i)=>{let e=document.createElement('div');e.className='word';e.textContent=t;e.style.setProperty('--top',(7+i*7.4)+'%');e.style.setProperty('--speed',(11+i%5*2)+'s');e.style.setProperty('--delay',(-i*1.4)+'s');document.getElementById('words').appendChild(e)});
-const fb=document.getElementById('flowers');for(let i=0;i<20;i++){let f=document.createElement('div');f.className='flower';f.style.setProperty('--top',(4+Math.random()*92)+'%');f.style.setProperty('--speed',(10+Math.random()*9)+'s');f.style.setProperty('--delay',(-Math.random()*15)+'s');f.style.setProperty('--wave',(Math.random()*150-75)+'px');f.innerHTML=i%2?'<div class="s"></div>':'<div class="r"></div>';fb.appendChild(f)}
-const intro=document.getElementById('intro'),music=document.getElementById('music');document.getElementById('enter').onclick=()=>{music.play().catch(()=>{});intro.style.opacity='0';setTimeout(()=>intro.remove(),1100);setTimeout(()=>{document.getElementById('final').style.display='flex';setTimeout(()=>document.getElementById('final').style.display='none',6500)},30000)};
-</script></body></html>
+
+<div class="pantalla">
+
+  <div class="flores">
+
+    <div class="flor">
+      <div class="tallo"></div>
+      <div class="cabeza">
+        <i class="petalo p1"></i>
+        <i class="petalo p2"></i>
+        <i class="petalo p3"></i>
+        <i class="petalo p4"></i>
+        <i class="petalo p5"></i>
+        <i class="petalo p6"></i>
+        <i class="petalo p7"></i>
+        <i class="petalo p8"></i>
+        <i class="centro"></i>
+      </div>
+    </div>
+
+    <div class="flor">
+      <div class="tallo"></div>
+      <div class="cabeza">
+        <i class="petalo p1"></i>
+        <i class="petalo p2"></i>
+        <i class="petalo p3"></i>
+        <i class="petalo p4"></i>
+        <i class="petalo p5"></i>
+        <i class="petalo p6"></i>
+        <i class="petalo p7"></i>
+        <i class="petalo p8"></i>
+        <i class="centro"></i>
+      </div>
+    </div>
+
+    <div class="flor">
+      <div class="tallo"></div>
+      <div class="cabeza">
+        <i class="petalo p1"></i>
+        <i class="petalo p2"></i>
+        <i class="petalo p3"></i>
+        <i class="petalo p4"></i>
+        <i class="petalo p5"></i>
+        <i class="petalo p6"></i>
+        <i class="petalo p7"></i>
+        <i class="petalo p8"></i>
+        <i class="centro"></i>
+      </div>
+    </div>
+
+  </div>
+
+  <div class="mensaje">
+
+    <h1>Para ti, Beatriz 🌻</h1>
+
+    <p>
+      Hola niña hermosa, este día no te mando algo
+      que puedas tocar, pero sí algo que puedes ver
+      y guardar. No te conozco mucho, pero te lo mando
+      con todo mi <span class="corazon">❤️</span>
+    </p>
+
+    <div class="firma">
+      wălt stĕb
+    </div>
+
+  </div>
+
+</div>
+
+</body>
+</html>
