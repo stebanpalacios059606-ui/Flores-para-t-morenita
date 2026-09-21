@@ -2,16 +2,15 @@
 <html lang="es">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width,initial-scale=1.0,maximum-scale=1.0,user-scalable=no">
-
-<title>Para Beatriz 🌎🌻</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<title>Para Beatriz 🌻</title>
 
 <style>
-
 *{
     margin:0;
     padding:0;
     box-sizing:border-box;
+    -webkit-tap-highlight-color:transparent;
 }
 
 html,body{
@@ -19,1235 +18,656 @@ html,body{
     height:100%;
     overflow:hidden;
     background:#000;
-    touch-action:none;
-    font-family:Georgia,"Times New Roman",serif;
+    font-family:Arial,Helvetica,sans-serif;
 }
 
+body{
+    touch-action:none;
+}
 
-/* =================================
-   ENTRADA
-================================= */
+/* =========================
+   PANTALLA INICIAL
+========================= */
 
-#start{
+#intro{
     position:fixed;
     inset:0;
-    z-index:1000;
-
-    display:flex;
-    align-items:center;
-    justify-content:center;
-
+    z-index:9999;
     background:#000;
-
-    transition:opacity 2s ease;
-}
-
-#start.hidden{
-    opacity:0;
-    pointer-events:none;
-}
-
-.enter{
-    color:#fff7c4;
-
+    display:flex;
+    justify-content:center;
+    align-items:center;
     text-align:center;
+    color:white;
+    cursor:pointer;
+}
 
-    font-size:
-        clamp(42px,12vw,82px);
+.introText{
+    animation:pulse 2s infinite;
+}
 
+.introText .small{
+    font-size:18px;
+    letter-spacing:6px;
+    opacity:.8;
+}
+
+.introText .big{
+    font-size:42px;
     font-weight:bold;
-
-    line-height:1.15;
-
     letter-spacing:8px;
-
+    margin-top:10px;
     text-shadow:
         0 0 10px #fff,
-        0 0 25px #ffd83d,
-        0 0 55px #ff9d00;
-
-    animation:pulse 2.5s infinite;
+        0 0 25px #8eeaff;
 }
 
-.enter span{
-    display:block;
+.introText .tap{
+    margin-top:25px;
+    font-size:15px;
+    opacity:.65;
 }
 
 @keyframes pulse{
-
-    0%,100%{
-        transform:scale(1);
-        opacity:.7;
-    }
-
     50%{
-        transform:scale(1.08);
-        opacity:1;
+        transform:scale(1.05);
+        opacity:.75;
     }
-
 }
 
-
-/* =================================
-   UNIVERSO
-================================= */
+/* =========================
+   ESPACIO
+========================= */
 
 #space{
     position:fixed;
     inset:0;
-
     overflow:hidden;
-
-    opacity:0;
-
     background:
-        radial-gradient(
-            circle at 50% 50%,
-            #351067 0%,
-            #16082e 30%,
-            #05020e 65%,
-            #000 100%
-        );
-
-    transition:opacity 4s;
+        radial-gradient(circle at 50% 45%,#151b4d 0%,#08091e 35%,#02030d 70%,#000 100%);
 }
 
-#space.show{
-    opacity:1;
+/* Nebulosa */
+
+.nebula{
+    position:absolute;
+    inset:-20%;
+    background:
+        radial-gradient(ellipse at 25% 30%,rgba(110,50,255,.25),transparent 35%),
+        radial-gradient(ellipse at 75% 25%,rgba(0,180,255,.20),transparent 35%),
+        radial-gradient(ellipse at 50% 75%,rgba(255,40,170,.16),transparent 40%);
+    filter:blur(25px);
+    animation:nebulaMove 18s ease-in-out infinite alternate;
 }
 
+@keyframes nebulaMove{
+    from{transform:scale(1) rotate(0deg);}
+    to{transform:scale(1.15) rotate(8deg);}
+}
 
-/* =================================
-   ESCENA COMPLETA
-================================= */
+/* Estrellas */
+
+#stars{
+    position:absolute;
+    inset:0;
+    overflow:hidden;
+}
+
+.star{
+    position:absolute;
+    width:2px;
+    height:2px;
+    background:white;
+    border-radius:50%;
+    box-shadow:0 0 6px white;
+    animation:twinkle 2s infinite alternate;
+}
+
+@keyframes twinkle{
+    from{opacity:.2;transform:scale(.7);}
+    to{opacity:1;transform:scale(1.5);}
+}
+
+/* =========================
+   ESCENA
+========================= */
 
 #scene{
     position:absolute;
-
     left:50%;
     top:50%;
-
     width:100vw;
     height:100vh;
-
     transform:
         translate(-50%,-50%)
         rotateX(0deg)
         rotateY(0deg)
         scale(1);
-
     transform-style:preserve-3d;
-
-    perspective:1200px;
-
-    will-change:transform;
+    transition:transform .08s linear;
 }
 
-
-/* =================================
-   NEBULOSA
-================================= */
-
-.nebula{
-    position:absolute;
-
-    left:50%;
-    top:50%;
-
-    width:120vw;
-    height:90vw;
-
-    max-width:1300px;
-    max-height:900px;
-
-    transform:
-        translate(-50%,-50%)
-        translateZ(-700px);
-
-    border-radius:50%;
-
-    background:
-        radial-gradient(
-            ellipse,
-            rgba(255,170,40,.28) 0%,
-            rgba(190,60,255,.25) 25%,
-            rgba(50,100,255,.18) 48%,
-            rgba(255,40,160,.10) 60%,
-            transparent 75%
-        );
-
-    filter:blur(35px);
-
-    animation:nebula 15s infinite alternate ease-in-out;
-}
-
-@keyframes nebula{
-
-    from{
-        transform:
-            translate(-53%,-48%)
-            translateZ(-700px)
-            rotate(-7deg)
-            scale(.9);
-    }
-
-    to{
-        transform:
-            translate(-47%,-52%)
-            translateZ(-700px)
-            rotate(7deg)
-            scale(1.15);
-    }
-
-}
-
-
-/* =================================
-   ESTRELLAS
-================================= */
-
-#stars{
-    position:absolute;
-    inset:0;
-
-    transform-style:preserve-3d;
-}
-
-.star{
-    position:absolute;
-
-    border-radius:50%;
-
-    background:#fff;
-
-    box-shadow:
-        0 0 5px #fff,
-        0 0 12px #fff;
-
-    animation:
-        twinkle
-        2s
-        infinite
-        alternate;
-}
-
-@keyframes twinkle{
-
-    from{
-        opacity:.2;
-        transform:scale(.5);
-    }
-
-    to{
-        opacity:1;
-        transform:scale(1.5);
-    }
-
-}
-
-
-/* =================================
+/* =========================
    TIERRA
-================================= */
-
-#earthOrbit{
-
-    position:absolute;
-
-    left:50%;
-    top:50%;
-
-    width:330px;
-    height:330px;
-
-    transform:
-        translate(-50%,-50%)
-        translateZ(0);
-
-    transform-style:preserve-3d;
-
-    z-index:30;
-}
-
-
-/* PLANETA */
+========================= */
 
 #earth{
-
     position:absolute;
-
     left:50%;
     top:50%;
+    width:min(43vw,310px);
+    height:min(43vw,310px);
+    min-width:220px;
+    min-height:220px;
 
-    width:280px;
-    height:280px;
-
-    transform:
-        translate(-50%,-50%);
+    transform:translate(-50%,-50%);
 
     border-radius:50%;
-
     overflow:hidden;
 
     background:
-
-        /* océanos */
-
         radial-gradient(
-            circle at 35% 30%,
-            #65c9ff 0%,
-            #0878c9 35%,
-            #03467f 65%,
-            #011a35 100%
+            circle at 32% 27%,
+            #8ee9ff 0%,
+            #159be0 25%,
+            #0870bd 48%,
+            #034477 70%,
+            #011a36 100%
         );
 
     box-shadow:
+        inset -35px -25px 55px rgba(0,0,0,.9),
+        inset 15px 10px 30px rgba(255,255,255,.25),
+        0 0 15px #66ddff,
+        0 0 45px rgba(80,190,255,.9),
+        0 0 100px rgba(70,120,255,.55);
 
-        inset
-        -35px -20px 50px
-        rgba(0,0,0,.95),
-
-        inset
-        20px 15px 30px
-        rgba(255,255,255,.2),
-
-        0 0 15px
-        rgba(120,220,255,.9),
-
-        0 0 40px
-        rgba(60,160,255,.9),
-
-        0 0 90px
-        rgba(70,100,255,.6);
-
-    animation:
-        earthSpin
-        22s
-        linear
-        infinite;
-
+    z-index:20;
+    animation:earthFloat 5s ease-in-out infinite;
 }
 
-
-/* CONTINENTES */
+/* Continentes */
 
 .land{
     position:absolute;
-
     background:
         linear-gradient(
             135deg,
-            #8bcf50,
-            #3c8d35 55%,
-            #18551e
+            #7ecb52,
+            #238b42 55%,
+            #0d5b32
         );
-
-    box-shadow:
-        inset -4px -4px 8px
-        rgba(0,0,0,.25);
-
     opacity:.95;
-
+    filter:blur(.4px);
 }
 
-
-/* AMÉRICA */
+/* América */
 
 .land1{
     width:70px;
-    height:135px;
-
-    left:62px;
-    top:65px;
-
-    border-radius:
-        60% 40% 55% 45%;
-
-    transform:rotate(20deg);
-}
-
-.land2{
-    width:35px;
-    height:85px;
-
-    left:92px;
-    top:160px;
-
-    border-radius:
-        50% 40% 60% 50%;
-
-    transform:rotate(-10deg);
-}
-
-
-/* EUROPA / ÁFRICA */
-
-.land3{
-    width:70px;
-    height:75px;
-
-    left:145px;
-    top:55px;
-
-    border-radius:
-        45% 55% 50% 60%;
-
-    transform:rotate(-12deg);
-}
-
-.land4{
-    width:62px;
-    height:105px;
-
-    left:155px;
-    top:110px;
-
-    border-radius:
-        45% 50% 55% 50%;
-
-    transform:rotate(12deg);
-}
-
-
-/* ASIA */
-
-.land5{
-    width:90px;
-    height:55px;
-
-    left:185px;
-    top:50px;
-
-    border-radius:
-        60% 40% 45% 55%;
-
-    transform:rotate(10deg);
-}
-
-
-/* AUSTRALIA */
-
-.land6{
-    width:45px;
-    height:28px;
-
-    left:205px;
-    top:175px;
-
-    border-radius:50%;
-
+    height:150px;
+    left:65px;
+    top:35px;
+    border-radius:60% 35% 45% 55%;
     transform:rotate(15deg);
 }
 
+/* Europa/Asia */
 
-/* ATMÓSFERA */
+.land2{
+    width:115px;
+    height:65px;
+    right:35px;
+    top:58px;
+    border-radius:55% 40% 45% 35%;
+    transform:rotate(-8deg);
+}
 
-.earthAtmosphere{
+/* África */
 
+.land3{
+    width:65px;
+    height:100px;
+    left:130px;
+    top:105px;
+    border-radius:45% 55% 40% 50%;
+    transform:rotate(12deg);
+}
+
+/* Australia */
+
+.land4{
+    width:55px;
+    height:35px;
+    right:35px;
+    bottom:65px;
+    border-radius:50%;
+    transform:rotate(-10deg);
+}
+
+/* Islas */
+
+.land5{
+    width:30px;
+    height:20px;
+    left:55px;
+    bottom:45px;
+    border-radius:50%;
+}
+
+.land6{
+    width:24px;
+    height:14px;
+    left:100px;
+    top:55px;
+    border-radius:50%;
+}
+
+/* Nubes */
+
+#earth::after{
+    content:"";
     position:absolute;
+    inset:0;
+    border-radius:50%;
+    background:
+        radial-gradient(
+            ellipse at 40% 30%,
+            rgba(255,255,255,.35),
+            transparent 12%
+        ),
+        radial-gradient(
+            ellipse at 65% 60%,
+            rgba(255,255,255,.2),
+            transparent 15%
+        ),
+        radial-gradient(
+            ellipse at 30% 75%,
+            rgba(255,255,255,.18),
+            transparent 12%
+        );
+    animation:cloudMove 12s linear infinite;
+}
 
+@keyframes cloudMove{
+    from{transform:translateX(-10px);}
+    to{transform:translateX(15px);}
+}
+
+@keyframes earthFloat{
+    50%{
+        transform:translate(-50%,-53%) scale(1.025);
+    }
+}
+
+/* Aura */
+
+.earthAura{
+    position:absolute;
     left:50%;
     top:50%;
-
-    width:296px;
-    height:296px;
-
-    transform:
-        translate(-50%,-50%);
-
+    width:min(49vw,350px);
+    height:min(49vw,350px);
+    min-width:245px;
+    min-height:245px;
+    transform:translate(-50%,-50%);
     border-radius:50%;
-
-    border:
-        2px solid
-        rgba(150,225,255,.8);
-
+    border:1px solid rgba(120,220,255,.5);
     box-shadow:
-
-        0 0 20px
-        rgba(100,200,255,.9),
-
-        0 0 50px
-        rgba(80,150,255,.6);
-
-    pointer-events:none;
+        0 0 25px rgba(80,200,255,.5),
+        inset 0 0 30px rgba(80,200,255,.2);
+    z-index:18;
+    animation:aura 3s ease-in-out infinite alternate;
 }
 
-
-@keyframes earthSpin{
-
-    from{
-        transform:
-            translate(-50%,-50%)
-            rotate(0deg);
-    }
-
+@keyframes aura{
     to{
-        transform:
-            translate(-50%,-50%)
-            rotate(360deg);
+        transform:translate(-50%,-50%) scale(1.06);
+        opacity:.55;
     }
-
 }
 
-
-/* =================================
-   ÓRBITA DE PALABRAS
-================================= */
+/* =========================
+   ORBITA DE FRASES
+========================= */
 
 #orbit{
-
     position:absolute;
-
     left:50%;
     top:50%;
+    width:min(88vw,570px);
+    height:min(88vw,570px);
+    transform:translate(-50%,-50%);
+    border-radius:50%;
+    z-index:40;
 
-    width:700px;
-    height:700px;
-
-    transform:
-        translate(-50%,-50%);
-
-    transform-style:preserve-3d;
-
-    animation:
-        orbitSpin
-        25s
-        linear
-        infinite;
-
-    z-index:50;
-
+    animation:orbitRotate 30s linear infinite;
 }
 
-
-@keyframes orbitSpin{
-
-    from{
-        transform:
-            translate(-50%,-50%)
-            rotateZ(0deg);
-    }
-
-    to{
-        transform:
-            translate(-50%,-50%)
-            rotateZ(360deg);
-    }
-
+@keyframes orbitRotate{
+    from{transform:translate(-50%,-50%) rotate(0deg);}
+    to{transform:translate(-50%,-50%) rotate(360deg);}
 }
 
+/* Anillo */
 
-/* =================================
-   PALABRAS
-================================= */
+#orbit::before{
+    content:"";
+    position:absolute;
+    inset:4%;
+    border:1px solid rgba(255,255,255,.12);
+    border-radius:50%;
+    box-shadow:
+        0 0 25px rgba(255,255,255,.06),
+        inset 0 0 20px rgba(255,255,255,.04);
+}
+
+/* Frases */
 
 .word{
-
     position:absolute;
-
     left:50%;
     top:50%;
 
-    color:#fff;
+    padding:7px 11px;
+    border-radius:20px;
 
+    color:white;
+    font-size:clamp(12px,3.2vw,17px);
+    font-weight:bold;
     white-space:nowrap;
 
-    font-size:
-        clamp(17px,4.5vw,34px);
-
-    font-weight:bold;
+    background:rgba(0,0,0,.35);
+    border:1px solid rgba(255,255,255,.22);
 
     text-shadow:
-
         0 0 5px #fff,
+        0 0 12px rgba(100,200,255,.8);
 
-        0 0 13px #ffd52e,
+    box-shadow:
+        0 0 10px rgba(255,255,255,.08);
 
-        0 0 25px #ff9d00,
-
-        0 0 40px #a54cff;
-
-    transform-style:preserve-3d;
-
-    animation:
-        wordFloat
-        3s
-        infinite
-        alternate
-        ease-in-out;
-
+    transform-origin:center;
 }
 
-
-/* posiciones orbitales */
+/* posiciones circulares */
 
 .w1{
-    transform:
-        translate(-50%,-50%)
-        translateX(330px)
-        translateY(-40px)
-        rotateZ(0deg);
+    transform:translate(-50%,-50%) translateY(-42vw);
 }
 
 .w2{
-    transform:
-        translate(-50%,-50%)
-        translateX(250px)
-        translateY(-180px)
-        rotateZ(25deg);
+    transform:translate(-50%,-50%) translate(30vw,-30vw);
 }
 
 .w3{
-    transform:
-        translate(-50%,-50%)
-        translateX(40px)
-        translateY(-315px)
-        rotateZ(-5deg);
+    transform:translate(-50%,-50%) translateX(42vw);
 }
 
 .w4{
-    transform:
-        translate(-50%,-50%)
-        translateX(-210px)
-        translateY(-230px)
-        rotateZ(-20deg);
+    transform:translate(-50%,-50%) translate(30vw,30vw);
 }
 
 .w5{
-    transform:
-        translate(-50%,-50%)
-        translateX(-330px)
-        translateY(-40px)
-        rotateZ(-10deg);
+    transform:translate(-50%,-50%) translateY(42vw);
 }
 
 .w6{
-    transform:
-        translate(-50%,-50%)
-        translateX(-260px)
-        translateY(150px)
-        rotateZ(15deg);
+    transform:translate(-50%,-50%) translate(-30vw,30vw);
 }
 
 .w7{
-    transform:
-        translate(-50%,-50%)
-        translateX(-80px)
-        translateY(300px)
-        rotateZ(5deg);
+    transform:translate(-50%,-50%) translateX(-42vw);
 }
 
 .w8{
-    transform:
-        translate(-50%,-50%)
-        translateX(150px)
-        translateY(250px)
-        rotateZ(-10deg);
+    transform:translate(-50%,-50%) translate(-30vw,-30vw);
 }
 
 .w9{
-    transform:
-        translate(-50%,-50%)
-        translateX(300px)
-        translateY(140px)
-        rotateZ(15deg);
+    transform:translate(-50%,-50%) translateY(-31vw) translateX(18vw);
 }
 
 .w10{
-    transform:
-        translate(-50%,-50%)
-        translateX(250px)
-        translateY(20px)
-        rotateZ(-15deg);
+    transform:translate(-50%,-50%) translateY(-31vw) translateX(-18vw);
 }
 
-
-@keyframes wordFloat{
-
-    from{
-        margin-top:-5px;
-        opacity:.65;
-    }
-
-    to{
-        margin-top:5px;
-        opacity:1;
-    }
-
+.w11{
+    transform:translate(-50%,-50%) translateY(31vw) translateX(18vw);
 }
 
-
-/* =================================
-   FLORES
-================================= */
-
-#flowers{
-
-    position:fixed;
-
-    inset:0;
-
-    z-index:100;
-
-    pointer-events:none;
-
-    opacity:0;
-
-    transition:opacity 2s;
+.w12{
+    transform:translate(-50%,-50%) translateY(31vw) translateX(-18vw);
 }
 
-#flowers.show{
-    opacity:1;
-}
+/* =========================
+   FLORES AMARILLAS
+========================= */
 
 .flower{
-
     position:absolute;
-
-    bottom:-120px;
-
-    width:80px;
-    height:120px;
-
-    animation:
-        flowerUp
-        3s
-        forwards
-        ease-out;
-
+    width:34px;
+    height:34px;
+    z-index:70;
+    animation:flowerFloat 4s ease-in-out infinite;
 }
-
-
-/* pétalos */
 
 .petal{
-
     position:absolute;
-
-    width:30px;
-    height:50px;
-
-    left:25px;
-    top:0;
-
-    border-radius:60%;
-
-    transform-origin:
-        50% 100%;
-
-    background:
-        radial-gradient(
-            ellipse at 50% 15%,
-            #ffffbd,
-            #ffe32a 45%,
-            #d99500 100%
-        );
-
-    box-shadow:
-        0 0 8px #ffd000,
-        0 0 20px rgba(255,200,0,.5);
+    width:16px;
+    height:25px;
+    background:#ffd92e;
+    border-radius:50%;
+    left:9px;
+    top:4px;
+    box-shadow:0 0 8px rgba(255,220,40,.7);
 }
 
-.petal:nth-child(1){
-    transform:rotate(0deg);
-}
-
-.petal:nth-child(2){
-    transform:rotate(60deg);
-}
-
-.petal:nth-child(3){
-    transform:rotate(120deg);
-}
-
-.petal:nth-child(4){
-    transform:rotate(180deg);
-}
-
-.petal:nth-child(5){
-    transform:rotate(240deg);
-}
-
-.petal:nth-child(6){
-    transform:rotate(300deg);
-}
-
+.p1{transform:rotate(0deg) translateY(-8px);}
+.p2{transform:rotate(60deg) translateY(-8px);}
+.p3{transform:rotate(120deg) translateY(-8px);}
+.p4{transform:rotate(180deg) translateY(-8px);}
+.p5{transform:rotate(240deg) translateY(-8px);}
+.p6{transform:rotate(300deg) translateY(-8px);}
 
 .center{
-
     position:absolute;
-
-    left:27px;
-    top:26px;
-
-    width:27px;
-    height:27px;
-
+    width:10px;
+    height:10px;
+    left:12px;
+    top:12px;
     border-radius:50%;
-
-    background:
-        radial-gradient(
-            circle,
-            #fff49b,
-            #d69a00 55%,
-            #805000
-        );
-
-    box-shadow:
-        0 0 10px #ffd000;
-
+    background:#9b5a00;
+    z-index:2;
 }
 
-
-.stem{
-
-    position:absolute;
-
-    width:5px;
-    height:90px;
-
-    left:38px;
-    top:48px;
-
-    background:
-        linear-gradient(
-            #6eb746,
-            #244d20
-        );
-
-    border-radius:10px;
-
-}
-
-
-@keyframes flowerUp{
-
-    0%{
-        transform:
-            translateY(130px)
-            scale(0);
-        opacity:0;
+@keyframes flowerFloat{
+    50%{
+        transform:translateY(-12px) rotate(8deg);
     }
-
-    60%{
-        transform:
-            translateY(0)
-            scale(1.1);
-        opacity:1;
-    }
-
-    100%{
-        transform:
-            translateY(0)
-            scale(1);
-        opacity:1;
-    }
-
 }
 
-
-/* =================================
-   INDICACIÓN
-================================= */
-
-#hint{
-
-    position:fixed;
-
-    left:50%;
-    bottom:7%;
-
-    transform:
-        translateX(-50%);
-
-    color:
-        rgba(255,255,255,.8);
-
-    font-size:13px;
-
-    letter-spacing:2px;
-
-    z-index:300;
-
-    opacity:0;
-
-    transition:opacity 2s;
-
-    white-space:nowrap;
-
-}
-
-#hint.show{
-    opacity:1;
-}
-
-
-/* =================================
+/* =========================
    MENSAJE FINAL
-================================= */
+========================= */
 
 #final{
-
     position:fixed;
-
     inset:0;
-
     z-index:500;
-
-    display:flex;
-
-    flex-direction:column;
-
-    justify-content:center;
-
+    display:none;
     align-items:center;
-
+    justify-content:center;
+    flex-direction:column;
     text-align:center;
-
-    opacity:0;
-
-    pointer-events:none;
-
-    transition:
-        opacity 3s,
-        transform 3s;
-
-    transform:
-        scale(.65);
 
     background:
         radial-gradient(
             circle,
-            rgba(0,0,0,.1),
-            rgba(0,0,0,.6)
+            rgba(20,80,40,.45),
+            rgba(0,0,0,.92) 70%
         );
-
 }
 
-#final.show{
-
-    opacity:1;
-
-    transform:scale(1);
-
-}
-
-.final-small{
-
+#final .para{
     color:white;
-
-    font-size:
-        clamp(24px,6vw,38px);
-
-    text-shadow:
-        0 0 10px white,
-        0 0 25px white;
-
+    font-size:25px;
+    letter-spacing:8px;
 }
 
-.final-name{
-
-    color:#39ff14;
-
-    font-size:
-        clamp(58px,17vw,120px);
-
+#final .beatriz{
+    margin-top:8px;
+    font-size:clamp(45px,14vw,90px);
     font-weight:bold;
-
-    letter-spacing:4px;
-
+    color:#39ff88;
+    letter-spacing:7px;
     text-shadow:
-
-        0 0 8px #39ff14,
-
-        0 0 20px #39ff14,
-
-        0 0 40px #39ff14,
-
-        0 0 80px rgba(57,255,20,.7);
-
-    animation:
-        greenGlow
-        2s
-        infinite
-        alternate;
-
+        0 0 10px #39ff88,
+        0 0 30px #18ff6b,
+        0 0 60px rgba(50,255,130,.7);
 }
 
-.final-signature{
-
-    margin-top:12px;
-
-    color:#39ff14;
-
-    font-size:
-        clamp(23px,6vw,40px);
-
-    letter-spacing:3px;
-
-    text-shadow:
-        0 0 8px #39ff14,
-        0 0 20px #39ff14;
-
+#final .firma{
+    margin-top:15px;
+    color:#39ff88;
+    font-size:22px;
+    letter-spacing:5px;
+    text-shadow:0 0 15px #39ff88;
 }
 
-@keyframes greenGlow{
+/* =========================
+   BOTÓN MÚSICA
+========================= */
 
-    from{
-        filter:brightness(.9);
-    }
-
-    to{
-        filter:brightness(1.5);
-    }
-
-}
-
-
-/* =================================
-   MÚSICA
-================================= */
-
-#musicButton{
-
+#musicBtn{
     position:fixed;
+    right:15px;
+    bottom:15px;
+    z-index:1000;
 
-    right:18px;
-    bottom:18px;
-
-    z-index:600;
-
-    width:52px;
-    height:52px;
+    width:48px;
+    height:48px;
 
     border-radius:50%;
+    border:1px solid rgba(255,255,255,.35);
 
-    border:
-        1px solid
-        rgba(255,255,255,.5);
-
-    background:
-        rgba(0,0,0,.55);
-
+    background:rgba(0,0,0,.5);
     color:white;
 
-    font-size:21px;
-
-    display:none;
-
+    font-size:20px;
 }
 
-#musicButton.show{
-    display:block;
-}
-
-
-/* =================================
+/* =========================
    MÓVIL
-================================= */
+========================= */
 
 @media(max-width:600px){
 
-    #earthOrbit{
-
-        width:300px;
-        height:300px;
-
-    }
-
-    #earth{
-
-        width:235px;
-        height:235px;
-
-    }
-
-    .earthAtmosphere{
-
-        width:250px;
-        height:250px;
-
-    }
-
     #orbit{
-
-        width:570px;
-        height:570px;
-
-    }
-
-    .w1{
-        transform:
-            translate(-50%,-50%)
-            translateX(260px)
-            translateY(-25px);
-    }
-
-    .w2{
-        transform:
-            translate(-50%,-50%)
-            translateX(190px)
-            translateY(-150px);
-    }
-
-    .w3{
-        transform:
-            translate(-50%,-50%)
-            translateX(20px)
-            translateY(-250px);
-    }
-
-    .w4{
-        transform:
-            translate(-50%,-50%)
-            translateX(-175px)
-            translateY(-180px);
-    }
-
-    .w5{
-        transform:
-            translate(-50%,-50%)
-            translateX(-260px)
-            translateY(-25px);
-    }
-
-    .w6{
-        transform:
-            translate(-50%,-50%)
-            translateX(-200px)
-            translateY(125px);
-    }
-
-    .w7{
-        transform:
-            translate(-50%,-50%)
-            translateX(-60px)
-            translateY(235px);
-    }
-
-    .w8{
-        transform:
-            translate(-50%,-50%)
-            translateX(115px)
-            translateY(200px);
-    }
-
-    .w9{
-        transform:
-            translate(-50%,-50%)
-            translateX(235px)
-            translateY(110px);
-    }
-
-    .w10{
-        transform:
-            translate(-50%,-50%)
-            translateX(200px)
-            translateY(15px);
+        width:88vw;
+        height:88vw;
     }
 
     .word{
-        font-size:18px;
+        font-size:12px;
+        padding:6px 8px;
     }
 
-    .enter{
-        font-size:44px;
+    .w1{
+        transform:translate(-50%,-50%) translateY(-39vw);
     }
 
+    .w2{
+        transform:translate(-50%,-50%) translate(27vw,-27vw);
+    }
+
+    .w3{
+        transform:translate(-50%,-50%) translateX(39vw);
+    }
+
+    .w4{
+        transform:translate(-50%,-50%) translate(27vw,27vw);
+    }
+
+    .w5{
+        transform:translate(-50%,-50%) translateY(39vw);
+    }
+
+    .w6{
+        transform:translate(-50%,-50%) translate(-27vw,27vw);
+    }
+
+    .w7{
+        transform:translate(-50%,-50%) translateX(-39vw);
+    }
+
+    .w8{
+        transform:translate(-50%,-50%) translate(-27vw,-27vw);
+    }
+
+    .w9{
+        transform:translate(-50%,-50%) translateY(-29vw) translateX(16vw);
+    }
+
+    .w10{
+        transform:translate(-50%,-50%) translateY(-29vw) translateX(-16vw);
+    }
+
+    .w11{
+        transform:translate(-50%,-50%) translateY(29vw) translateX(16vw);
+    }
+
+    .w12{
+        transform:translate(-50%,-50%) translateY(29vw) translateX(-16vw);
+    }
 }
-
-
-/* =================================
-   OCULTAR TEXTO DE ÓRBITA
-   DURANTE FINAL
-================================= */
-
-.final-active #orbit{
-    opacity:.15;
-    transition:opacity 3s;
-}
-
 </style>
 </head>
 
-
 <body>
 
+<!-- =========================
+     INTRO
+========================= -->
 
-<!-- =================================
-     ENTRADA
-================================= -->
-
-<div id="start">
-
-    <div class="enter">
-
-        <span>TOCA</span>
-
-        <span>Y</span>
-
-        <span>ENTRA</span>
-
+<div id="intro">
+    <div class="introText">
+        <div class="small">UN PEQUEÑO DETALLE</div>
+        <div class="big">TOCA Y ENTRA</div>
+        <div class="tap">✨ Para ti, Beatriz 🌻</div>
     </div>
-
 </div>
 
-
-<!-- =================================
-     MÚSICA
-================================= -->
-
-<audio
-    id="music"
-    src="musica.mp3"
-    loop
-    preload="auto">
-</audio>
-
-
-<!-- =================================
-     UNIVERSO
-================================= -->
+<!-- =========================
+     ESPACIO
+========================= -->
 
 <div id="space">
 
+    <div class="nebula"></div>
+    <div id="stars"></div>
+
     <div id="scene">
 
-        <div class="nebula"></div>
+        <div class="earthAura"></div>
 
-        <div id="stars"></div>
+        <div id="earth">
 
-
-        <!-- TIERRA -->
-
-        <div id="earthOrbit">
-
-            <div id="earth">
-
-                <div class="land land1"></div>
-                <div class="land land2"></div>
-                <div class="land land3"></div>
-                <div class="land land4"></div>
-                <div class="land land5"></div>
-                <div class="land land6"></div>
-
-            </div>
-
-            <div class="earthAtmosphere"></div>
+            <div class="land land1"></div>
+            <div class="land land2"></div>
+            <div class="land land3"></div>
+            <div class="land land4"></div>
+            <div class="land land5"></div>
+            <div class="land land6"></div>
 
         </div>
 
-
-        <!-- PALABRAS EN ÓRBITA -->
-
         <div id="orbit">
 
-            <div class="word w1">
-                Beatriz ❤️
-            </div>
+            <div class="word w1">Beatriz ❤️</div>
 
             <div class="word w2">
-                Niña hermosa ✨
+                Qué bonito conocerte ✨
             </div>
 
             <div class="word w3">
@@ -1255,31 +675,39 @@ html,body{
             </div>
 
             <div class="word w4">
-                Qué bonita eres 💫
+                Tu sonrisa ilumina 💫
             </div>
 
             <div class="word w5">
-                Me encantas ❤️
+                Me alegra coincidir contigo ❤️
             </div>
 
             <div class="word w6">
-                Para ti 🌻
+                Tu amistad es un regalo 💛
             </div>
 
             <div class="word w7">
-                Hermosa 💚
+                Nunca dejes de sonreír 😊
             </div>
 
             <div class="word w8">
-                Tu sonrisa ✨
+                Eres única ✨
             </div>
 
             <div class="word w9">
-                Qué linda eres 🌻
+                Qué linda persona eres 🌻
             </div>
 
             <div class="word w10">
-                Nunca dejes de sonreír ❤️
+                Te deseo cosas bonitas 💫
+            </div>
+
+            <div class="word w11">
+                Con cariño para ti 💛
+            </div>
+
+            <div class="word w12">
+                Para una niña especial ❤️
             </div>
 
         </div>
@@ -1288,544 +716,272 @@ html,body{
 
 </div>
 
-
-<!-- =================================
-     FLORES
-================================= -->
-
-<div id="flowers"></div>
-
-
-<!-- =================================
-     INDICACIÓN
-================================= -->
-
-<div id="hint">
-    👆 MUEVE EL UNIVERSO CON TU DEDO
-</div>
-
-
-<!-- =================================
-     FINAL
-================================= -->
+<!-- =========================
+     MENSAJE FINAL
+========================= -->
 
 <div id="final">
-
-    <div class="final-small">
-        Para
-    </div>
-
-    <div class="final-name">
-        BEATRIZ
-    </div>
-
-    <div class="final-signature">
-        wălt stĕb
-    </div>
-
+    <div class="para">PARA</div>
+    <div class="beatriz">BEATRIZ</div>
+    <div class="firma">wălt stĕb</div>
 </div>
 
+<button id="musicBtn">🎵</button>
 
-<!-- =================================
-     MÚSICA
-================================= -->
-
-<button id="musicButton">
-    🔊
-</button>
-
+<audio id="music" loop>
+    <source src="musica.mp3" type="audio/mpeg">
+</audio>
 
 <script>
 
+/* =========================
+   ESTRELLAS
+========================= */
 
-/* =================================
-   ELEMENTOS
-================================= */
+const stars = document.getElementById("stars");
 
-const start =
-    document.getElementById("start");
+for(let i=0;i<180;i++){
 
-const space =
-    document.getElementById("space");
-
-const scene =
-    document.getElementById("scene");
-
-const stars =
-    document.getElementById("stars");
-
-const flowers =
-    document.getElementById("flowers");
-
-const hint =
-    document.getElementById("hint");
-
-const final =
-    document.getElementById("final");
-
-const music =
-    document.getElementById("music");
-
-const musicButton =
-    document.getElementById("musicButton");
-
-
-/* =================================
-   CREAR ESTRELLAS
-================================= */
-
-for(let i=0;i<350;i++){
-
-    const star =
-        document.createElement("div");
+    const star=document.createElement("div");
 
     star.className="star";
 
-    star.style.left =
-        Math.random()*100+"%";
+    star.style.left=Math.random()*100+"%";
+    star.style.top=Math.random()*100+"%";
 
-    star.style.top =
-        Math.random()*100+"%";
+    const size=Math.random()*2+1;
 
-    const size =
-        Math.random()*2.5+.4;
+    star.style.width=size+"px";
+    star.style.height=size+"px";
 
-    star.style.width =
-        size+"px";
-
-    star.style.height =
-        size+"px";
-
-    star.style.transform =
-        `translateZ(${
-            -900+
-            Math.random()*1300
-        }px)`;
-
-    star.style.animationDuration =
-        1+
-        Math.random()*4+
-        "s";
-
-    star.style.animationDelay =
-        Math.random()*4+
-        "s";
+    star.style.animationDelay=(Math.random()*3)+"s";
 
     stars.appendChild(star);
-
 }
 
 
-/* =================================
+/* =========================
    FLORES
-================================= */
+========================= */
 
-const flowerPositions=[
-    2,8,15,22,30,
-    38,46,54,62,70,
-    78,85,92,97,
-    12,28,45,65,82
-];
+function createFlower(){
 
-
-function createFlower(i){
-
-    const flower =
-        document.createElement("div");
+    const flower=document.createElement("div");
 
     flower.className="flower";
 
-    flower.style.left =
-        flowerPositions[i]+"%";
+    flower.innerHTML=`
+        <div class="petal p1"></div>
+        <div class="petal p2"></div>
+        <div class="petal p3"></div>
+        <div class="petal p4"></div>
+        <div class="petal p5"></div>
+        <div class="petal p6"></div>
+        <div class="center"></div>
+    `;
 
-    flower.style.animationDelay =
-        i*.12+"s";
+    flower.style.left=(5+Math.random()*90)+"%";
+    flower.style.top=(5+Math.random()*90)+"%";
+
+    flower.style.animationDelay=(Math.random()*4)+"s";
+
+    document.getElementById("space").appendChild(flower);
+}
 
 
-    for(let j=0;j<6;j++){
+/* =========================
+   MÚSICA
+========================= */
 
-        const petal =
-            document.createElement("div");
+const music=document.getElementById("music");
+const intro=document.getElementById("intro");
+const musicBtn=document.getElementById("musicBtn");
 
-        petal.className="petal";
+intro.addEventListener("click",function(){
 
-        flower.appendChild(petal);
+    intro.style.opacity="0";
+    intro.style.transition="opacity 1s";
+
+    setTimeout(()=>{
+        intro.style.display="none";
+    },1000);
+
+    music.play().catch(()=>{});
+
+    /* Flores aparecen poco a poco */
+
+    setTimeout(()=>{
+        for(let i=0;i<22;i++){
+            createFlower();
+        }
+    },5000);
+
+});
+
+
+musicBtn.addEventListener("click",function(){
+
+    if(music.paused){
+
+        music.play().catch(()=>{});
+        musicBtn.textContent="🔊";
+
+    }else{
+
+        music.pause();
+        musicBtn.textContent="🔇";
 
     }
 
-
-    const center =
-        document.createElement("div");
-
-    center.className="center";
-
-    flower.appendChild(center);
+});
 
 
-    const stem =
-        document.createElement("div");
+/* =========================
+   MOVIMIENTO TÁCTIL
+========================= */
 
-    stem.className="stem";
+const scene=document.getElementById("scene");
 
-    flower.appendChild(stem);
-
-
-    flowers.appendChild(flower);
-
-}
-
-
-for(let i=0;i<flowerPositions.length;i++){
-
-    createFlower(i);
-
-}
-
-
-/* =================================
-   ESTADO
-================================= */
-
-let started=false;
-
-let musicPlaying=false;
-
-
-/* =================================
-   MOVIMIENTO
-================================= */
-
-let rotX=0;
-
-let rotY=0;
-
-let lastX=0;
-
-let lastY=0;
-
-let dragging=false;
+let rotationX=0;
+let rotationY=0;
 
 let scale=1;
 
-let pinchStart=0;
+let dragging=false;
 
+let lastX=0;
+let lastY=0;
 
-/* =================================
-   APLICAR MOVIMIENTO
-================================= */
+let initialDistance=0;
+let initialScale=1;
+
 
 function updateScene(){
 
     scene.style.transform=
-
         `translate(-50%,-50%)
-         rotateX(${rotX}deg)
-         rotateY(${rotY}deg)
+         rotateX(${rotationX}deg)
+         rotateY(${rotationY}deg)
          scale(${scale})`;
 
 }
 
 
-/* =================================
-   INICIAR
-================================= */
+/* Un dedo */
 
-function startExperience(){
+document.addEventListener("touchstart",function(e){
 
-    if(started) return;
-
-    started=true;
-
-
-    /* música */
-
-    music.volume=.55;
-
-    music.play()
-        .then(()=>{
-
-            musicPlaying=true;
-
-            musicButton.textContent="🔊";
-
-        })
-        .catch(()=>{
-
-            musicPlaying=false;
-
-        });
-
-
-    start.classList.add("hidden");
-
-
-    setTimeout(()=>{
-
-        space.classList.add("show");
-
-        hint.classList.add("show");
-
-    },400);
-
-
-    setTimeout(()=>{
-
-        hint.classList.remove("show");
-
-    },6000);
-
-
-    /* flores */
-
-    setTimeout(()=>{
-
-        flowers.classList.add("show");
-
-    },9000);
-
-
-    /* final */
-
-    setTimeout(()=>{
-
-        document.body.classList.add(
-            "final-active"
-        );
-
-        final.classList.add("show");
-
-        musicButton.classList.add("show");
-
-    },15000);
-
-}
-
-
-/* =================================
-   TOQUE INICIAL
-================================= */
-
-start.addEventListener(
-    "pointerdown",
-    ()=>{
-
-        if(!started){
-
-            music.volume=.55;
-
-            music.play()
-                .catch(()=>{});
-
-        }
-
-    }
-);
-
-
-start.addEventListener(
-    "click",
-    startExperience
-);
-
-
-/* =================================
-   ARRASTRAR CON UN DEDO
-================================= */
-
-scene.addEventListener(
-    "pointerdown",
-    event=>{
-
-        if(!started) return;
+    if(e.touches.length===1){
 
         dragging=true;
 
-        lastX=
-            event.clientX;
-
-        lastY=
-            event.clientY;
+        lastX=e.touches[0].clientX;
+        lastY=e.touches[0].clientY;
 
     }
-);
 
+    if(e.touches.length===2){
 
-window.addEventListener(
-    "pointermove",
-    event=>{
-
-        if(
-            !dragging ||
-            !started
-        ){
-            return;
-        }
-
-
-        const dx =
-            event.clientX-lastX;
-
-        const dy =
-            event.clientY-lastY;
-
-
-        rotY +=
-            dx*.4;
-
-        rotX -=
-            dy*.4;
-
-
-        rotX =
-            Math.max(
-                -65,
-                Math.min(
-                    65,
-                    rotX
-                )
-            );
-
-
-        updateScene();
-
-
-        lastX=
-            event.clientX;
-
-        lastY=
-            event.clientY;
-
-    }
-);
-
-
-window.addEventListener(
-    "pointerup",
-    ()=>{
         dragging=false;
+
+        const dx=
+            e.touches[0].clientX-
+            e.touches[1].clientX;
+
+        const dy=
+            e.touches[0].clientY-
+            e.touches[1].clientY;
+
+        initialDistance=Math.sqrt(dx*dx+dy*dy);
+
+        initialScale=scale;
+
     }
-);
+
+},{passive:false});
 
 
-/* =================================
-   ZOOM CON DOS DEDOS
-================================= */
+document.addEventListener("touchmove",function(e){
 
-scene.addEventListener(
-    "touchstart",
-    event=>{
+    e.preventDefault();
 
-        if(
-            event.touches.length===2
-        ){
+    /* Dos dedos = zoom */
 
-            pinchStart=
-                Math.hypot(
+    if(e.touches.length===2){
 
-                    event.touches[0].clientX-
-                    event.touches[1].clientX,
+        const dx=
+            e.touches[0].clientX-
+            e.touches[1].clientX;
 
-                    event.touches[0].clientY-
-                    event.touches[1].clientY
+        const dy=
+            e.touches[0].clientY-
+            e.touches[1].clientY;
 
-                );
+        const distance=Math.sqrt(dx*dx+dy*dy);
 
-        }
-
-    },
-    {passive:true}
-);
-
-
-scene.addEventListener(
-    "touchmove",
-    event=>{
-
-        if(
-            event.touches.length===2 &&
-            pinchStart
-        ){
-
-            const distance=
-                Math.hypot(
-
-                    event.touches[0].clientX-
-                    event.touches[1].clientX,
-
-                    event.touches[0].clientY-
-                    event.touches[1].clientY
-
-                );
-
-
-            scale *=
-                distance/pinchStart;
-
+        if(initialDistance>0){
 
             scale=
-                Math.max(
-                    .65,
-                    Math.min(
-                        1.8,
-                        scale
-                    )
-                );
+                initialScale*
+                (distance/initialDistance);
 
-
-            pinchStart=
-                distance;
-
+            scale=Math.max(.65,Math.min(1.6,scale));
 
             updateScene();
 
         }
 
-    },
-    {passive:true}
-);
+        return;
+    }
 
 
-scene.addEventListener(
-    "touchend",
-    ()=>{
-        pinchStart=0;
-    },
-    {passive:true}
-);
+    /* Un dedo = mover */
 
+    if(e.touches.length===1 && dragging){
 
-/* =================================
-   MÚSICA
-================================= */
+        const x=e.touches[0].clientX;
+        const y=e.touches[0].clientY;
 
-musicButton.addEventListener(
-    "click",
-    ()=>{
+        const dx=x-lastX;
+        const dy=y-lastY;
 
-        if(musicPlaying){
+        rotationY+=dx*.35;
+        rotationX-=dy*.35;
 
-            music.pause();
+        rotationX=Math.max(-55,Math.min(55,rotationX));
 
-            musicPlaying=false;
+        lastX=x;
+        lastY=y;
 
-            musicButton.textContent="🔇";
-
-        }else{
-
-            music.play()
-                .then(()=>{
-
-                    musicPlaying=true;
-
-                    musicButton.textContent="🔊";
-
-                })
-                .catch(()=>{});
-
-        }
+        updateScene();
 
     }
-);
+
+},{passive:false});
+
+
+document.addEventListener("touchend",function(){
+
+    dragging=false;
+
+});
+
+
+/* =========================
+   MENSAJE FINAL
+========================= */
+
+let finalShown=false;
+
+setTimeout(()=>{
+
+    if(finalShown)return;
+
+    finalShown=true;
+
+    document.getElementById("final").style.display="flex";
+
+},28000);
 
 </script>
 
