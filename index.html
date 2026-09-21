@@ -2,7 +2,7 @@
 <html lang="es">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
 <title>Para Beatriz 🌻</title>
 
 <style>
@@ -18,6 +18,7 @@ html,body{
     overflow:hidden;
     background:#000;
     font-family:Georgia,"Times New Roman",serif;
+    touch-action:none;
 }
 
 /* =========================
@@ -61,6 +62,7 @@ html,body{
 }
 
 @keyframes pulse{
+
     0%,100%{
         transform:scale(1);
         opacity:.75;
@@ -72,6 +74,7 @@ html,body{
     }
 }
 
+
 /* =========================
    ESPACIO
 ========================= */
@@ -79,7 +82,10 @@ html,body{
 #space{
     position:fixed;
     inset:0;
+
     opacity:0;
+
+    overflow:hidden;
 
     background:
         radial-gradient(
@@ -96,6 +102,7 @@ html,body{
 #space.show{
     opacity:1;
 }
+
 
 /* =========================
    NEBULOSA
@@ -129,7 +136,12 @@ html,body{
 
     filter:blur(35px);
 
-    animation:nebulaMove 14s infinite alternate ease-in-out;
+    animation:
+        nebulaMove
+        14s
+        infinite
+        alternate
+        ease-in-out;
 }
 
 @keyframes nebulaMove{
@@ -148,6 +160,29 @@ html,body{
             rotate(5deg);
     }
 }
+
+
+/* =========================
+   UNIVERSO INTERACTIVO
+========================= */
+
+#universe{
+    position:absolute;
+    inset:0;
+
+    perspective:900px;
+
+    transform-style:preserve-3d;
+
+    overflow:hidden;
+
+    cursor:grab;
+}
+
+#universe:active{
+    cursor:grabbing;
+}
+
 
 /* =========================
    ESTRELLAS
@@ -169,17 +204,19 @@ html,body{
 .star{
     position:absolute;
 
-    width:2px;
-    height:2px;
-
     border-radius:50%;
+
     background:white;
 
     box-shadow:
         0 0 5px white,
         0 0 10px rgba(255,255,255,.7);
 
-    animation:twinkle infinite alternate ease-in-out;
+    animation:
+        twinkle
+        infinite
+        alternate
+        ease-in-out;
 }
 
 @keyframes twinkle{
@@ -195,10 +232,6 @@ html,body{
     }
 }
 
-/* =========================
-   ESTRELLAS GRANDES
-========================= */
-
 .big-star{
     position:absolute;
 
@@ -206,13 +239,18 @@ html,body{
     height:4px;
 
     background:white;
+
     border-radius:50%;
 
     box-shadow:
         0 0 10px white,
         0 0 20px white;
 
-    animation:bigTwinkle 2s infinite alternate;
+    animation:
+        bigTwinkle
+        2s
+        infinite
+        alternate;
 }
 
 @keyframes bigTwinkle{
@@ -228,19 +266,198 @@ html,body{
     }
 }
 
+
+/* =========================
+   CAPA 3D DE PALABRAS
+========================= */
+
+#wordLayer{
+
+    position:absolute;
+
+    inset:0;
+
+    transform-style:preserve-3d;
+
+    pointer-events:none;
+}
+
+
+/* =========================
+   PALABRAS ROMÁNTICAS
+========================= */
+
+.word{
+
+    position:absolute;
+
+    left:50%;
+    top:50%;
+
+    white-space:nowrap;
+
+    color:#fff;
+
+    font-weight:bold;
+
+    font-size:
+        clamp(22px,6vw,48px);
+
+    text-shadow:
+
+        0 0 6px #fff,
+
+        0 0 16px rgba(255,210,80,.9),
+
+        0 0 34px rgba(190,80,255,.7);
+
+    transform-style:preserve-3d;
+
+    will-change:
+        transform,
+        opacity;
+
+    animation:
+        flyWord
+        5.5s
+        ease-in-out
+        forwards;
+}
+
+
+/*
+   Las palabras vienen desde
+   el fondo, se acercan a la
+   "cámara" y luego se alejan.
+*/
+
+@keyframes flyWord{
+
+    0%{
+
+        opacity:0;
+
+        transform:
+            translate3d(
+                calc(var(--x) - 50%),
+                calc(var(--y) - 50%),
+                -900px
+            )
+
+            rotateX(var(--rx))
+            rotateY(var(--ry))
+
+            scale(.15);
+    }
+
+    15%{
+        opacity:1;
+    }
+
+    55%{
+
+        opacity:1;
+
+        transform:
+            translate3d(
+                calc(var(--x) - 50%),
+                calc(var(--y) - 50%),
+                120px
+            )
+
+            rotateX(
+                calc(var(--rx) + 90deg)
+            )
+
+            rotateY(
+                calc(var(--ry) + 120deg)
+            )
+
+            scale(1.1);
+    }
+
+    85%{
+        opacity:.8;
+    }
+
+    100%{
+
+        opacity:0;
+
+        transform:
+            translate3d(
+                calc(var(--x) - 50%),
+                calc(var(--y) - 50%),
+                850px
+            )
+
+            rotateX(
+                calc(var(--rx) + 180deg)
+            )
+
+            rotateY(
+                calc(var(--ry) + 260deg)
+            )
+
+            scale(1.55);
+    }
+}
+
+
+/* =========================
+   INDICACIÓN DE MOVIMIENTO
+========================= */
+
+#hint{
+
+    position:absolute;
+
+    left:50%;
+    bottom:8%;
+
+    transform:
+        translateX(-50%);
+
+    color:
+        rgba(255,255,255,.7);
+
+    font-size:15px;
+
+    letter-spacing:2px;
+
+    text-align:center;
+
+    opacity:0;
+
+    transition:
+        opacity 2s;
+
+    pointer-events:none;
+
+    white-space:nowrap;
+}
+
+#hint.show{
+    opacity:1;
+}
+
+
 /* =========================
    FLORES
 ========================= */
 
 #flowers{
+
     position:fixed;
+
     inset:0;
 
     pointer-events:none;
 
     opacity:0;
 
-    transition:opacity 2s ease;
+    transition:
+        opacity 2s ease;
 }
 
 #flowers.show{
@@ -248,6 +465,7 @@ html,body{
 }
 
 .flower{
+
     position:absolute;
 
     bottom:-120px;
@@ -256,10 +474,14 @@ html,body{
     height:120px;
 
     animation:
-        grow 3s forwards ease-out;
+        grow
+        3s
+        forwards
+        ease-out;
 }
 
 .flower::after{
+
     content:"";
 
     position:absolute;
@@ -280,12 +502,12 @@ html,body{
         );
 
     box-shadow:
-        0 0 5px rgba(80,180,50,.3);
+        0 0 5px
+        rgba(80,180,50,.3);
 }
 
-/* pétalos */
-
 .petal{
+
     position:absolute;
 
     width:38px;
@@ -296,7 +518,8 @@ html,body{
 
     border-radius:50%;
 
-    transform-origin:50% 100%;
+    transform-origin:
+        50% 100%;
 
     background:
         radial-gradient(
@@ -307,37 +530,51 @@ html,body{
         );
 
     box-shadow:
-        0 0 10px rgba(255,220,30,.8),
-        0 0 22px rgba(255,190,0,.3);
+        0 0 10px
+        rgba(255,220,30,.8),
+
+        0 0 22px
+        rgba(255,190,0,.3);
 }
 
 .petal:nth-child(1){
-    transform:rotate(0deg) translateY(-5px);
+    transform:
+        rotate(0deg)
+        translateY(-5px);
 }
 
 .petal:nth-child(2){
-    transform:rotate(60deg) translateY(-5px);
+    transform:
+        rotate(60deg)
+        translateY(-5px);
 }
 
 .petal:nth-child(3){
-    transform:rotate(120deg) translateY(-5px);
+    transform:
+        rotate(120deg)
+        translateY(-5px);
 }
 
 .petal:nth-child(4){
-    transform:rotate(180deg) translateY(-5px);
+    transform:
+        rotate(180deg)
+        translateY(-5px);
 }
 
 .petal:nth-child(5){
-    transform:rotate(240deg) translateY(-5px);
+    transform:
+        rotate(240deg)
+        translateY(-5px);
 }
 
 .petal:nth-child(6){
-    transform:rotate(300deg) translateY(-5px);
+    transform:
+        rotate(300deg)
+        translateY(-5px);
 }
 
-/* centro */
-
 .center{
+
     position:absolute;
 
     width:30px;
@@ -366,6 +603,7 @@ html,body{
 @keyframes grow{
 
     0%{
+
         transform:
             translateY(120px)
             scale(0)
@@ -375,6 +613,7 @@ html,body{
     }
 
     60%{
+
         transform:
             translateY(0)
             scale(1.15)
@@ -384,14 +623,16 @@ html,body{
     }
 
     100%{
+
         transform:
             translateY(0)
             scale(1)
-            rotate(0deg);
+            rotate(0);
 
         opacity:1;
     }
 }
+
 
 /* =========================
    MENSAJE FINAL
@@ -400,14 +641,17 @@ html,body{
 .final-message{
 
     position:fixed;
+
     inset:0;
 
     z-index:50;
 
     display:flex;
+
     flex-direction:column;
 
     justify-content:center;
+
     align-items:center;
 
     text-align:center;
@@ -445,10 +689,9 @@ html,body{
 
     text-shadow:
         0 0 8px white,
-        0 0 18px rgba(255,255,255,.5);
+        0 0 18px
+        rgba(255,255,255,.5);
 }
-
-/* BEATRIZ */
 
 .name{
 
@@ -462,19 +705,30 @@ html,body{
     letter-spacing:3px;
 
     text-shadow:
+
         0 0 5px #39ff14,
+
         0 0 15px #39ff14,
+
         0 0 30px #39ff14,
-        0 0 60px rgba(57,255,20,.7),
-        0 0 100px rgba(57,255,20,.35);
+
+        0 0 60px
+        rgba(57,255,20,.7),
+
+        0 0 100px
+        rgba(57,255,20,.35);
 
     animation:
-        greenGlow 2.5s infinite alternate;
+        greenGlow
+        2.5s
+        infinite
+        alternate;
 }
 
 @keyframes greenGlow{
 
     from{
+
         text-shadow:
             0 0 5px #39ff14,
             0 0 15px #39ff14,
@@ -482,15 +736,15 @@ html,body{
     }
 
     to{
+
         text-shadow:
             0 0 8px #39ff14,
             0 0 25px #39ff14,
             0 0 50px #39ff14,
-            0 0 90px rgba(57,255,20,.6);
+            0 0 90px
+            rgba(57,255,20,.6);
     }
 }
-
-/* FIRMA */
 
 .signature{
 
@@ -504,10 +758,15 @@ html,body{
     letter-spacing:3px;
 
     text-shadow:
+
         0 0 5px #39ff14,
+
         0 0 15px #39ff14,
-        0 0 30px rgba(57,255,20,.7);
+
+        0 0 30px
+        rgba(57,255,20,.7);
 }
+
 
 /* =========================
    BOTÓN MÚSICA
@@ -528,7 +787,8 @@ html,body{
     border-radius:50%;
 
     border:
-        1px solid rgba(255,255,255,.5);
+        1px solid
+        rgba(255,255,255,.5);
 
     background:
         rgba(0,0,0,.45);
@@ -544,15 +804,18 @@ html,body{
 
     cursor:pointer;
 
-    backdrop-filter:blur(8px);
+    backdrop-filter:
+        blur(8px);
 
     box-shadow:
-        0 0 12px rgba(255,255,255,.2);
+        0 0 12px
+        rgba(255,255,255,.2);
 }
 
 .music-control.show{
     display:flex;
 }
+
 
 /* =========================
    MÓVIL
@@ -561,7 +824,9 @@ html,body{
 @media(max-width:600px){
 
     .enter{
+
         font-size:43px;
+
         letter-spacing:6px;
     }
 
@@ -576,22 +841,29 @@ html,body{
     .signature{
         font-size:25px;
     }
+
+    #hint{
+        font-size:12px;
+    }
 }
 </style>
 </head>
 
 <body>
 
+
 <!-- =========================
-     INICIO
+     PANTALLA DE ENTRADA
 ========================= -->
 
 <div id="start">
 
     <div class="enter">
+
         <span>TOCA</span>
         <span>Y</span>
         <span>ENTRA</span>
+
     </div>
 
 </div>
@@ -617,7 +889,17 @@ html,body{
 
     <div class="nebula"></div>
 
-    <div id="stars"></div>
+    <div id="universe">
+
+        <div id="stars"></div>
+
+        <div id="wordLayer"></div>
+
+        <div id="hint">
+            👆 MUEVE EL UNIVERSO CON TU DEDO
+        </div>
+
+    </div>
 
 </div>
 
@@ -630,7 +912,7 @@ html,body{
 
 
 <!-- =========================
-     MENSAJE
+     MENSAJE FINAL
 ========================= -->
 
 <div
@@ -642,7 +924,7 @@ html,body{
     </div>
 
     <div class="name">
-        Beatriz
+        BEATRIZ
     </div>
 
     <div class="signature">
@@ -653,31 +935,67 @@ html,body{
 
 
 <!-- =========================
-     CONTROL MÚSICA
+     CONTROL DE MÚSICA
 ========================= -->
 
 <button
     id="musicButton"
-    class="music-control">
+    class="music-control"
+    aria-label="Controlar música">
+
     🔊
+
 </button>
 
 
 <script>
 
 /* =========================
-   CREAR ESTRELLAS
+   ELEMENTOS
 ========================= */
+
+const start =
+    document.getElementById("start");
+
+const space =
+    document.getElementById("space");
+
+const universe =
+    document.getElementById("universe");
 
 const stars =
     document.getElementById("stars");
 
-for(let i = 0; i < 220; i++){
+const wordLayer =
+    document.getElementById("wordLayer");
+
+const hint =
+    document.getElementById("hint");
+
+const flowers =
+    document.getElementById("flowers");
+
+const finalMessage =
+    document.getElementById("finalMessage");
+
+const music =
+    document.getElementById("music");
+
+const musicButton =
+    document.getElementById("musicButton");
+
+
+/* =========================
+   CREAR ESTRELLAS
+========================= */
+
+for(let i = 0; i < 240; i++){
 
     const star =
         document.createElement("div");
 
-    star.className = "star";
+    star.className =
+        "star";
 
     star.style.left =
         Math.random() * 100 + "%";
@@ -704,9 +1022,11 @@ for(let i = 0; i < 220; i++){
 }
 
 
-/* estrellas grandes */
+/* =========================
+   ESTRELLAS GRANDES
+========================= */
 
-for(let i = 0; i < 18; i++){
+for(let i = 0; i < 20; i++){
 
     const star =
         document.createElement("div");
@@ -728,17 +1048,123 @@ for(let i = 0; i < 18; i++){
 
 
 /* =========================
+   FRASES ROMÁNTICAS
+========================= */
+
+const phrases = [
+
+    "Te quiero ❤️",
+
+    "Niña hermosa ✨",
+
+    "Eres especial 🌻",
+
+    "Qué bonita eres 💫",
+
+    "Me encantas ❤️",
+
+    "Para ti 🌻",
+
+    "Un detalle para ti ✨",
+
+    "Hermosa 💚",
+
+    "Nunca dejes de sonreír ✨",
+
+    "Beatriz ❤️"
+
+];
+
+let wordTimer;
+
+
+/* =========================
+   CREAR PALABRA 3D
+========================= */
+
+function createWord(){
+
+    const word =
+        document.createElement("div");
+
+    word.className =
+        "word";
+
+    word.textContent =
+        phrases[
+            Math.floor(
+                Math.random() *
+                phrases.length
+            )
+        ];
+
+
+    word.style.setProperty(
+        "--x",
+        (15 + Math.random() * 70) + "vw"
+    );
+
+    word.style.setProperty(
+        "--y",
+        (15 + Math.random() * 70) + "vh"
+    );
+
+    word.style.setProperty(
+        "--rx",
+        (-25 + Math.random() * 50) + "deg"
+    );
+
+    word.style.setProperty(
+        "--ry",
+        (-40 + Math.random() * 80) + "deg"
+    );
+
+    word.style.animationDelay =
+        (Math.random() * .5) + "s";
+
+    wordLayer.appendChild(word);
+
+
+    setTimeout(
+        () => word.remove(),
+        6200
+    );
+}
+
+
+/* =========================
+   INICIAR FRASES
+========================= */
+
+function startWords(){
+
+    for(let i = 0; i < 4; i++){
+
+        setTimeout(
+            createWord,
+            i * 800
+        );
+    }
+
+    wordTimer =
+        setInterval(
+            createWord,
+            1400
+        );
+}
+
+
+/* =========================
    CREAR FLORES
 ========================= */
 
-const flowers =
-    document.getElementById("flowers");
-
 const positions = [
-    2, 11, 20, 30, 40,
-    50, 60, 70, 80, 90,
-    25, 75
+
+    2,11,20,30,40,50,
+    60,70,80,90,25,75
+
 ];
+
 
 function createFlower(index){
 
@@ -754,6 +1180,7 @@ function createFlower(index){
     flower.style.animationDelay =
         (index * .25) + "s";
 
+
     for(let i = 0; i < 6; i++){
 
         const petal =
@@ -762,8 +1189,11 @@ function createFlower(index){
         petal.className =
             "petal";
 
-        flower.appendChild(petal);
+        flower.appendChild(
+            petal
+        );
     }
+
 
     const center =
         document.createElement("div");
@@ -771,120 +1201,386 @@ function createFlower(index){
     center.className =
         "center";
 
-    flower.appendChild(center);
+    flower.appendChild(
+        center
+    );
 
-    flowers.appendChild(flower);
+    flowers.appendChild(
+        flower
+    );
 }
 
+
 for(let i = 0; i < 12; i++){
+
     createFlower(i);
+
 }
 
 
 /* =========================
-   ELEMENTOS
+   ESTADO
 ========================= */
 
-const start =
-    document.getElementById("start");
-
-const space =
-    document.getElementById("space");
-
-const finalMessage =
-    document.getElementById("finalMessage");
-
-const music =
-    document.getElementById("music");
-
-const musicButton =
-    document.getElementById("musicButton");
-
-
 let started = false;
+
 let musicPlaying = false;
 
 
 /* =========================
-   INICIAR
+   CÁMARA 3D
+========================= */
+
+let rotX = 0;
+let rotY = 0;
+
+let lastX = 0;
+let lastY = 0;
+
+let dragging = false;
+
+let scale = 1;
+
+let pinchStart = 0;
+
+
+/* =========================
+   APLICAR MOVIMIENTO
+========================= */
+
+function applyCamera(){
+
+    wordLayer.style.transform =
+
+        `rotateX(${rotX}deg)
+         rotateY(${rotY}deg)
+         scale(${scale})`;
+
+}
+
+
+/* =========================
+   INICIAR EXPERIENCIA
 ========================= */
 
 function startExperience(){
 
-    if(started) return;
+    if(started){
+        return;
+    }
 
     started = true;
 
 
-    /* música */
+    /*
+       Intentar iniciar la música
+       directamente desde el toque.
+    */
 
     music.volume = .55;
 
-    music.play()
-        .then(() => {
+    const playPromise =
+        music.play();
+
+    if(playPromise){
+
+        playPromise.then(() => {
 
             musicPlaying = true;
 
-            musicButton.innerText =
+            musicButton.textContent =
                 "🔊";
 
-        })
-        .catch(() => {
+        }).catch(() => {
+
+            /*
+               Algunos navegadores móviles
+               pueden bloquear el audio.
+            */
 
             musicPlaying = false;
 
         });
 
-
-    /* quitar pantalla negra */
-
-    start.classList.add("hidden");
+    }
 
 
-    /* galaxia */
+    start.classList.add(
+        "hidden"
+    );
+
 
     setTimeout(() => {
 
-        space.classList.add("show");
+        space.classList.add(
+            "show"
+        );
 
-        stars.classList.add("show");
+        stars.classList.add(
+            "show"
+        );
+
+        hint.classList.add(
+            "show"
+        );
+
+        startWords();
 
     },500);
 
 
-    /* flores */
+    setTimeout(() => {
+
+        hint.classList.remove(
+            "show"
+        );
+
+    },5000);
+
 
     setTimeout(() => {
 
-        flowers.classList.add("show");
+        flowers.classList.add(
+            "show"
+        );
 
-    },1800);
+    },8500);
 
-
-    /* mensaje */
 
     setTimeout(() => {
 
-        finalMessage.classList.add("show");
+        finalMessage.classList.add(
+            "show"
+        );
 
-        musicButton.classList.add("show");
+        musicButton.classList.add(
+            "show"
+        );
 
-    },5200);
+        clearInterval(
+            wordTimer
+        );
+
+    },11500);
+
 }
 
 
 /* =========================
-   TOCAR
+   ENTRADA
 ========================= */
 
 start.addEventListener(
-    "pointerdown",
+    "click",
     startExperience
 );
 
 
+/*
+   Segundo intento de audio
+   durante el gesto inicial.
+*/
+
+start.addEventListener(
+    "pointerdown",
+    () => {
+
+        if(!started){
+
+            music.volume = .55;
+
+            music.play()
+                .catch(() => {});
+
+        }
+
+    }
+);
+
+
 /* =========================
-   MÚSICA
+   MOVER GALAXIA CON DEDO
+========================= */
+
+universe.addEventListener(
+    "pointerdown",
+    event => {
+
+        if(!started){
+            return;
+        }
+
+        dragging = true;
+
+        lastX =
+            event.clientX;
+
+        lastY =
+            event.clientY;
+
+    }
+);
+
+
+window.addEventListener(
+    "pointermove",
+    event => {
+
+        if(
+            !dragging ||
+            !started
+        ){
+            return;
+        }
+
+
+        const dx =
+            event.clientX -
+            lastX;
+
+        const dy =
+            event.clientY -
+            lastY;
+
+
+        rotY +=
+            dx * .35;
+
+        rotX -=
+            dy * .35;
+
+
+        rotX =
+            Math.max(
+                -70,
+                Math.min(
+                    70,
+                    rotX
+                )
+            );
+
+
+        lastX =
+            event.clientX;
+
+        lastY =
+            event.clientY;
+
+
+        applyCamera();
+
+    }
+);
+
+
+window.addEventListener(
+    "pointerup",
+    () => {
+
+        dragging = false;
+
+    }
+);
+
+
+/* =========================
+   ZOOM CON DOS DEDOS
+========================= */
+
+universe.addEventListener(
+    "touchstart",
+    event => {
+
+        if(
+            event.touches.length === 2
+        ){
+
+            pinchStart =
+                Math.hypot(
+
+                    event.touches[0].clientX -
+                    event.touches[1].clientX,
+
+                    event.touches[0].clientY -
+                    event.touches[1].clientY
+
+                );
+
+        }
+
+    },
+    {
+        passive:true
+    }
+);
+
+
+universe.addEventListener(
+    "touchmove",
+    event => {
+
+        if(
+            event.touches.length === 2 &&
+            pinchStart
+        ){
+
+            const distance =
+                Math.hypot(
+
+                    event.touches[0].clientX -
+                    event.touches[1].clientX,
+
+                    event.touches[0].clientY -
+                    event.touches[1].clientY
+
+                );
+
+
+            scale *=
+                distance /
+                pinchStart;
+
+
+            scale =
+                Math.max(
+                    .65,
+                    Math.min(
+                        1.7,
+                        scale
+                    )
+                );
+
+
+            pinchStart =
+                distance;
+
+
+            applyCamera();
+
+        }
+
+    },
+    {
+        passive:true
+    }
+);
+
+
+universe.addEventListener(
+    "touchend",
+    () => {
+
+        pinchStart = 0;
+
+    },
+    {
+        passive:true
+    }
+);
+
+
+/* =========================
+   CONTROL DE MÚSICA
 ========================= */
 
 musicButton.addEventListener(
@@ -895,22 +1591,28 @@ musicButton.addEventListener(
 
             music.pause();
 
-            musicPlaying = false;
+            musicPlaying =
+                false;
 
-            musicButton.innerText =
+            musicButton.textContent =
                 "🔇";
 
-        }else{
+        }
+
+        else{
 
             music.play()
                 .then(() => {
 
-                    musicPlaying = true;
+                    musicPlaying =
+                        true;
 
-                    musicButton.innerText =
+                    musicButton.textContent =
                         "🔊";
 
-                });
+                })
+                .catch(() => {});
+
         }
 
     }
