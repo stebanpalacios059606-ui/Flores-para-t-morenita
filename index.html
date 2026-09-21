@@ -1,105 +1,240 @@
-```html
-<!DOCTYPE html>
-<html lang="es">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+```css
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
 
-    <title>Flores para ti 🌻</title>
+html,
+body {
+    width: 100%;
+    min-height: 100%;
+    overflow-x: hidden;
+}
 
-    <link rel="stylesheet" href="style.css">
-</head>
+body {
+    font-family: Arial, sans-serif;
+    background: radial-gradient(circle at center, #241000, #090300 70%);
+    color: white;
+    text-align: center;
+    -webkit-tap-highlight-color: transparent;
+}
 
-<body>
+/* Pantalla inicial */
+#inicio {
+    position: fixed;
+    inset: 0;
+    z-index: 9999;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: radial-gradient(circle, #3b1d00, #080300 75%);
+    transition: opacity 0.8s ease;
+}
 
-    <!-- Música -->
-    <audio id="musica" preload="auto" loop>
-        <source src="musica.mp3" type="audio/mpeg">
-    </audio>
+.inicio-contenido {
+    padding: 30px;
+}
 
-    <!-- Pantalla inicial -->
-    <div id="inicio">
-        <div class="inicio-contenido">
-            <div class="flor">🌻</div>
-            <h1>Para ti</h1>
-            <p>Toca la pantalla para comenzar</p>
-            <div class="pulso">♡</div>
-        </div>
-    </div>
+.inicio-contenido .flor {
+    font-size: 90px;
+    animation: flotar 2s ease-in-out infinite;
+}
 
-    <!-- Contenido principal -->
-    <main id="contenido">
+.inicio-contenido h1 {
+    margin-top: 20px;
+    font-size: 34px;
+    color: #ffd54a;
+}
 
-        <div class="estrellas"></div>
+.inicio-contenido p {
+    margin-top: 15px;
+    font-size: 17px;
+    color: #fff4c2;
+}
 
-        <section class="flores">
+.pulso {
+    margin-top: 25px;
+    font-size: 38px;
+    animation: pulso 1.2s infinite;
+    color: #ffd54a;
+}
 
-            <div class="flor-amarilla flor1">🌻</div>
-            <div class="flor-amarilla flor2">🌻</div>
-            <div class="flor-amarilla flor3">🌻</div>
-            <div class="flor-amarilla flor4">🌻</div>
-            <div class="flor-amarilla flor5">🌻</div>
+/* Contenido */
+#contenido {
+    min-height: 100vh;
+    opacity: 0;
+    transition: opacity 1.2s ease;
+}
 
-            <div class="mensaje">
-                <h1>Para la niña morenita 🌻</h1>
+#contenido.activo {
+    opacity: 1;
+}
 
-                <p>
-                    Hola niña hermosa ❤️
-                </p>
+/* Fondo */
+.estrellas {
+    position: fixed;
+    inset: 0;
+    z-index: -1;
+    background:
+        radial-gradient(circle at 20% 20%, rgba(255, 213, 74, 0.15) 0 2px, transparent 3px),
+        radial-gradient(circle at 80% 30%, rgba(255, 255, 255, 0.2) 0 1px, transparent 2px),
+        radial-gradient(circle at 40% 75%, rgba(255, 213, 74, 0.15) 0 2px, transparent 3px);
+    background-size: 140px 140px, 100px 100px, 180px 180px;
+    animation: estrellas 8s linear infinite;
+}
 
-                <p>
-                    Este día no te mando algo que puedas tocar,
-                    pero sí algo que puedes ver y guardar.
-                </p>
+/* Flores */
+.flores {
+    position: relative;
+    min-height: 100vh;
+    padding: 35px 18px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
 
-                <p>
-                    No te conozco mucho,
-                    pero te lo mando con todo mi corazón. ❤️
-                </p>
+.flor-amarilla {
+    position: absolute;
+    font-size: 45px;
+    filter: drop-shadow(0 0 10px rgba(255, 200, 0, 0.7));
+    animation: flotar 3s ease-in-out infinite;
+}
 
-                <p class="especial">
-                    Espero que tengas un lindo día 🌻✨
-                </p>
+.flor1 {
+    top: 7%;
+    left: 8%;
+}
 
-                <span class="firma">wălt stĕb</span>
-            </div>
+.flor2 {
+    top: 15%;
+    right: 8%;
+    animation-delay: 0.6s;
+}
 
-        </section>
+.flor3 {
+    bottom: 12%;
+    left: 7%;
+    animation-delay: 1s;
+}
 
-    </main>
+.flor4 {
+    bottom: 18%;
+    right: 8%;
+    animation-delay: 1.5s;
+}
 
-    <script src="script.js"></script>
+.flor5 {
+    top: 48%;
+    right: 2%;
+    font-size: 35px;
+    animation-delay: 2s;
+}
 
-    <script>
-        const musica = document.getElementById("musica");
-        const inicio = document.getElementById("inicio");
-        const contenido = document.getElementById("contenido");
+/* Mensaje */
+.mensaje {
+    width: 100%;
+    max-width: 420px;
+    padding: 30px 22px;
+    border-radius: 28px;
 
-        let iniciada = false;
+    background: rgba(20, 10, 2, 0.72);
+    border: 1px solid rgba(255, 213, 74, 0.35);
 
-        function comenzar() {
-            if (iniciada) return;
+    box-shadow:
+        0 0 25px rgba(255, 190, 0, 0.15),
+        inset 0 0 25px rgba(255, 190, 0, 0.04);
 
-            iniciada = true;
+    backdrop-filter: blur(8px);
+}
 
-            musica.volume = 0.8;
+.mensaje h1 {
+    font-size: 27px;
+    line-height: 1.2;
+    color: #ffd54a;
+    margin-bottom: 25px;
+}
 
-            musica.play().catch(() => {});
+.mensaje p {
+    font-size: 17px;
+    line-height: 1.7;
+    margin-bottom: 18px;
+    color: #fff8df;
+}
 
-            inicio.style.opacity = "0";
-            inicio.style.pointerEvents = "none";
+.mensaje .especial {
+    color: #ffd54a;
+    font-weight: bold;
+    margin-top: 22px;
+}
 
-            setTimeout(() => {
-                inicio.style.display = "none";
-                contenido.classList.add("activo");
-            }, 800);
-        }
+.firma {
+    display: block;
+    margin-top: 28px;
+    font-size: 16px;
+    font-style: italic;
+    color: #ffffff;
+    opacity: 0.8;
+}
 
-        document.addEventListener("pointerdown", comenzar, {
-            once: true
-        });
-    </script>
+/* Animaciones */
+@keyframes flotar {
+    0%, 100% {
+        transform: translateY(0) rotate(-3deg);
+    }
 
-</body>
-</html>
+    50% {
+        transform: translateY(-12px) rotate(3deg);
+    }
+}
+
+@keyframes pulso {
+    0%, 100% {
+        transform: scale(1);
+        opacity: 0.7;
+    }
+
+    50% {
+        transform: scale(1.25);
+        opacity: 1;
+    }
+}
+
+@keyframes estrellas {
+    from {
+        transform: translateY(0);
+    }
+
+    to {
+        transform: translateY(-80px);
+    }
+}
+
+/* Ajuste para celulares pequeños */
+@media (max-width: 360px) {
+
+    .inicio-contenido .flor {
+        font-size: 70px;
+    }
+
+    .inicio-contenido h1 {
+        font-size: 28px;
+    }
+
+    .mensaje {
+        padding: 25px 18px;
+    }
+
+    .mensaje h1 {
+        font-size: 23px;
+    }
+
+    .mensaje p {
+        font-size: 15px;
+    }
+
+    .flor-amarilla {
+        font-size: 35px;
+    }
+}
 ```
